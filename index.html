@@ -103,15 +103,6 @@
             letter-spacing: 0.5px;
             color: var(--text-color);
         }
-
-        .falling-letter {
-            position: fixed;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 20px;
-            user-select: none;
-            pointer-events: none;
-            will-change: transform, opacity;
-        }
     </style>
 </head>
 <body>
@@ -120,7 +111,7 @@
         <div class="button-container">
             <button class="menu-button about-button" aria-expanded="false" aria-controls="about-section">About</button>
             <button class="menu-button portfolio-button" aria-expanded="false" aria-controls="portfolio-section">Portfolio</button>
-            <a href="mailto:contact@hananecherairia.com" class="menu-button contact-button" aria-label="Contact Hanane">Contact</a>
+            <a href="mailto:cher@hananecherairia.com" class="menu-button contact-button" aria-label="Contact Hanane">Contact</a>
         </div>
     </div>
     <div id="about-section" class="about-section" aria-hidden="true">
@@ -131,71 +122,6 @@
     </div>
 
     <script>
-        const letters = ['h', 'a', 'n', 'e', 'c'];
-        const fallingLetters = [];
-        const logoContainer = document.getElementById('logo-container');
-        let logoRect = logoContainer.getBoundingClientRect();
-        const fadeStartOffset = 100;
-        let letterIndex = 0;
-        let sequenceCount = 0;
-
-        function getNextLetter() {
-            if (sequenceCount < 5) {
-                let letter = letters[sequenceCount];
-                sequenceCount++;
-                return letter;
-            } else {
-                return letters[Math.floor(Math.random() * letters.length)];
-            }
-        }
-
-        function createFallingLetter() {
-            if (fallingLetters.length >= 20) return;
-
-            const letter = document.createElement('div');
-            letter.classList.add('falling-letter');
-            letter.innerText = getNextLetter();
-            letter.style.left = `${Math.random() * 100}vw`;
-            letter.style.top = '-20px';
-            letter.style.opacity = Math.random() * 0.5 + 0.5;
-            document.body.appendChild(letter);
-
-            const duration = Math.random() * 15 + 25;
-            const startTime = performance.now();
-            const horizontalMovement = (Math.random() - 0.5) * 150;
-
-            function animateLetter(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = elapsed / (duration * 1000);
-
-                if (progress < 1) {
-                    const easeProgress = 1 - Math.pow(1 - progress, 3);
-                    const yPosition = easeProgress * window.innerHeight;
-                    const xPosition = parseFloat(letter.style.left) + horizontalMovement * Math.sin(progress * Math.PI * 2);
-                    letter.style.transform = `translate(${xPosition}px, ${yPosition}px)`;
-
-                    if (yPosition > logoRect.top - fadeStartOffset) {
-                        const fadeProgress = (yPosition - (logoRect.top - fadeStartOffset)) / (logoRect.height + fadeStartOffset);
-                        letter.style.opacity = Math.max(0, 1 - fadeProgress) * parseFloat(letter.style.opacity);
-                    }
-
-                    requestAnimationFrame(animateLetter);
-                } else {
-                    letter.remove();
-                    const index = fallingLetters.indexOf(letter);
-                    if (index > -1) {
-                        fallingLetters.splice(index, 1);
-                    }
-                }
-            }
-
-            requestAnimationFrame(animateLetter);
-            fallingLetters.push(letter);
-        }
-
-        createFallingLetter();
-        setInterval(createFallingLetter, 1000);
-
         const aboutButton = document.querySelector('.about-button');
         const portfolioButton = document.querySelector('.portfolio-button');
         const aboutSection = document.getElementById('about-section');
@@ -221,10 +147,6 @@
             if (aboutSection.style.display === 'block') {
                 toggleSection(aboutButton, aboutSection);
             }
-        });
-
-        window.addEventListener('resize', () => {
-            logoRect = logoContainer.getBoundingClientRect();
         });
     </script>
 </body>
