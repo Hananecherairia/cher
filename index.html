@@ -12,7 +12,7 @@
             --bg-color: #000000;
             --text-color: #f0f0f0;
             --button-bg: rgba(255, 255, 255, 0.1);
-            --button-text: #000000;
+            --button-text: #ffffff;
             --button-hover-bg: rgba(255, 255, 255, 0.2);
             --button-hover-text: #ffffff;
         }
@@ -22,21 +22,21 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
             transition: background-color 0.3s ease;
         }
 
         .logo-container {
             position: relative;
-            max-width: 90%;
-            height: auto;
-            margin-bottom: 20px;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
             z-index: 1;
             transition: transform 0.3s ease;
         }
@@ -48,18 +48,19 @@
         .logo-container img {
             width: 100%;
             height: auto;
-            max-width: 400px;
+            display: block;
         }
 
         .button-container {
             position: absolute;
-            bottom: 20px;
+            bottom: 10px;
             left: 0;
             right: 0;
             display: flex;
             justify-content: center;
-            gap: 15px;
-            padding: 10px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 5px;
         }
 
         .menu-button {
@@ -89,9 +90,10 @@
         }
 
         .about-section, .portfolio-section {
-            max-width: 600px;
+            max-width: 90%;
+            width: 100%;
             text-align: center;
-            margin-top: 20px;
+            margin: 20px auto;
             opacity: 0;
             transition: opacity 0.3s ease;
             display: none;
@@ -102,6 +104,32 @@
             font-weight: 300;
             letter-spacing: 0.5px;
             color: var(--text-color);
+        }
+
+        .portfolio-section iframe {
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        @media (max-width: 600px) {
+            .logo-container {
+                margin: 10px auto;
+            }
+
+            .button-container {
+                position: static;
+                margin-top: 10px;
+            }
+
+            .menu-button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .about-text {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -118,7 +146,7 @@
         <p class="about-text">Hanane Cherairia</p>
     </div>
     <div id="portfolio-section" class="portfolio-section" aria-hidden="true">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Y3QUlc9WbdA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Y3QUlc9WbdA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
     <script>
