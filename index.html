@@ -11,8 +11,9 @@
         :root {
             --bg-color: #000000;
             --text-color: #f0f0f0;
-            --button-bg: #373737;
-            --button-hover-bg: #f0f0f0;
+            --button-bg: rgba(255, 255, 0, 0.7); /* Semi-transparent yellow */
+            --button-text: #000000;
+            --button-hover-bg: rgba(255, 255, 0, 1);
             --button-hover-text: #000000;
         }
 
@@ -32,6 +33,7 @@
         }
 
         .logo-container {
+            position: relative;
             max-width: 90%;
             height: auto;
             margin-bottom: 20px;
@@ -50,23 +52,28 @@
         }
 
         .button-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             display: flex;
+            justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            padding: 5px 0;
+            background-color: rgba(255, 255, 0, 0.7); /* Semi-transparent yellow */
         }
 
         .about-button, .portfolio-button, .contact-button {
-            padding: 10px 20px;
-            background-color: var(--button-bg);
-            color: var(--text-color);
+            padding: 5px 10px;
+            background-color: transparent;
+            color: var(--button-text);
             text-decoration: none;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             letter-spacing: 1px;
             text-transform: uppercase;
-            border-radius: 4px;
             transition: all 0.3s ease;
             z-index: 1;
         }
@@ -77,22 +84,22 @@
             background-color: var(--button-hover-bg);
             color: var(--button-hover-text);
             outline: none;
-            transform: translateY(-2px);
         }
 
-        .about-section {
+        .about-section, .portfolio-section {
             max-width: 600px;
             text-align: center;
             margin-top: 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
+            display: none;
         }
 
         .about-text {
             font-size: 14px;
             font-weight: bold;
             letter-spacing: 1px;
-            color: var(--button-bg);
+            color: var(--text-color);
         }
 
         .falling-letter {
@@ -108,18 +115,54 @@
 <body>
     <div class="logo-container" id="logo-container">
         <img src="https://raw.githubusercontent.com/Hananecherairia/cher/main/Hanan%20Cherairia%20HCH.jpg" alt="Hanane Cherairia Logo" loading="lazy">
-    </div>
-    <div class="button-container">
-        <button class="about-button" aria-expanded="false" aria-controls="About Hanane">About</button>
-        <button class="portfolio-button">Portfolio</button>
-        <a href="mailto:cher@hananecherairia.com" class="contact-button" aria-label="Contact Hanane">Contact</a>
+        <div class="button-container">
+            <button class="about-button" aria-expanded="false" aria-controls="about-section">About</button>
+            <button class="portfolio-button" aria-expanded="false" aria-controls="portfolio-section">Portfolio</button>
+            <a href="mailto:contact@hananecherairia.com" class="contact-button" aria-label="Contact Hanane">Contact</a>
+        </div>
     </div>
     <div id="about-section" class="about-section" aria-hidden="true">
         <p class="about-text">Hanane Cherairia</p>
     </div>
+    <div id="portfolio-section" class="portfolio-section" aria-hidden="true">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Y3QUlc9WbdA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
 
     <script>
-        // ... (The script remains the same as in the original code)
+        // ... (Previous script content)
+
+        // About and Portfolio section toggle
+        const aboutButton = document.querySelector('.about-button');
+        const portfolioButton = document.querySelector('.portfolio-button');
+        const aboutSection = document.getElementById('about-section');
+        const portfolioSection = document.getElementById('portfolio-section');
+
+        function toggleSection(button, section) {
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !isExpanded);
+            section.style.opacity = isExpanded ? 0 : 1;
+            section.style.display = isExpanded ? 'none' : 'block';
+            section.setAttribute('aria-hidden', isExpanded);
+        }
+
+        aboutButton.addEventListener('click', () => {
+            toggleSection(aboutButton, aboutSection);
+            if (portfolioSection.style.display === 'block') {
+                toggleSection(portfolioButton, portfolioSection);
+            }
+        });
+
+        portfolioButton.addEventListener('click', () => {
+            toggleSection(portfolioButton, portfolioSection);
+            if (aboutSection.style.display === 'block') {
+                toggleSection(aboutButton, aboutSection);
+            }
+        });
+
+        // Recalculate logo position on window resize
+        window.addEventListener('resize', () => {
+            logoRect = logoContainer.getBoundingClientRect();
+        });
     </script>
 </body>
 </html>
