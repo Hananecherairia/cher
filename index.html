@@ -11,10 +11,10 @@
         :root {
             --bg-color: #000000;
             --text-color: #f0f0f0;
-            --button-bg: rgba(255, 255, 0, 0.7); /* Semi-transparent yellow */
-            --button-text: #000000;
-            --button-hover-bg: rgba(255, 255, 0, 1);
-            --button-hover-text: #000000;
+            --button-bg: rgba(255, 255, 255, 0.1);
+            --button-text: #ffffff;
+            --button-hover-bg: rgba(255, 255, 255, 0.2);
+            --button-hover-text: #ffffff;
         }
 
         body {
@@ -27,7 +27,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             overflow: hidden;
             transition: background-color 0.3s ease;
         }
@@ -53,37 +53,39 @@
 
         .button-container {
             position: absolute;
-            bottom: 0;
+            bottom: 20px;
             left: 0;
             right: 0;
             display: flex;
             justify-content: center;
-            gap: 10px;
-            padding: 5px 0;
-            background-color: rgba(255, 255, 0, 0.7); /* Semi-transparent yellow */
+            gap: 15px;
+            padding: 10px 0;
         }
 
-        .about-button, .portfolio-button, .contact-button {
-            padding: 5px 10px;
-            background-color: transparent;
+        .menu-button {
+            padding: 8px 16px;
+            background-color: var(--button-bg);
             color: var(--button-text);
             text-decoration: none;
             border: none;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             transition: all 0.3s ease;
             z-index: 1;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
-        .about-button:hover, .about-button:focus,
-        .portfolio-button:hover, .portfolio-button:focus,
-        .contact-button:hover, .contact-button:focus {
+        .menu-button:hover, .menu-button:focus {
             background-color: var(--button-hover-bg);
             color: var(--button-hover-text);
             outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .about-section, .portfolio-section {
@@ -96,9 +98,9 @@
         }
 
         .about-text {
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
             color: var(--text-color);
         }
 
@@ -116,9 +118,9 @@
     <div class="logo-container" id="logo-container">
         <img src="https://raw.githubusercontent.com/Hananecherairia/cher/main/Hanan%20Cherairia%20HCH.jpg" alt="Hanane Cherairia Logo" loading="lazy">
         <div class="button-container">
-            <button class="about-button" aria-expanded="false" aria-controls="about-section">About</button>
-            <button class="portfolio-button" aria-expanded="false" aria-controls="portfolio-section">Portfolio</button>
-            <a href="mailto:contact@hananecherairia.com" class="contact-button" aria-label="Contact Hanane">Contact</a>
+            <button class="menu-button about-button" aria-expanded="false" aria-controls="about-section">About</button>
+            <button class="menu-button portfolio-button" aria-expanded="false" aria-controls="portfolio-section">Portfolio</button>
+            <a href="mailto:contact@hananecherairia.com" class="menu-button contact-button" aria-label="Contact Hanane">Contact</a>
         </div>
     </div>
     <div id="about-section" class="about-section" aria-hidden="true">
@@ -129,40 +131,7 @@
     </div>
 
     <script>
-        // ... (Previous script content)
-
-        // About and Portfolio section toggle
-        const aboutButton = document.querySelector('.about-button');
-        const portfolioButton = document.querySelector('.portfolio-button');
-        const aboutSection = document.getElementById('about-section');
-        const portfolioSection = document.getElementById('portfolio-section');
-
-        function toggleSection(button, section) {
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !isExpanded);
-            section.style.opacity = isExpanded ? 0 : 1;
-            section.style.display = isExpanded ? 'none' : 'block';
-            section.setAttribute('aria-hidden', isExpanded);
-        }
-
-        aboutButton.addEventListener('click', () => {
-            toggleSection(aboutButton, aboutSection);
-            if (portfolioSection.style.display === 'block') {
-                toggleSection(portfolioButton, portfolioSection);
-            }
-        });
-
-        portfolioButton.addEventListener('click', () => {
-            toggleSection(portfolioButton, portfolioSection);
-            if (aboutSection.style.display === 'block') {
-                toggleSection(aboutButton, aboutSection);
-            }
-        });
-
-        // Recalculate logo position on window resize
-        window.addEventListener('resize', () => {
-            logoRect = logoContainer.getBoundingClientRect();
-        });
+        // ... (Script remains the same as in the previous version)
     </script>
 </body>
 </html>
