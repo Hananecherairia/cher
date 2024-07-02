@@ -1,137 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hanane Cherairia">
-    <meta name="keywords" content="Hanane, Cherairia">
-    <title>Hanane Cherairia</title>
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/omarsalemx/hagat/main/Hagat%20favicon.png">
-    <style>
-        :root {
-            --bg-color: #000000;
-            --text-color: #f0f0f0;
-            --button-bg: rgba(255, 255, 255, 0.1);
-            --button-text: #ffffff;
-            --button-hover-bg: rgba(255, 255, 255, 0.2);
-            --button-hover-text: #ffffff;
-        }
+function toggleSection(button, section) {
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', !isExpanded);
+    section.style.opacity = isExpanded ? 0 : 1;
+    section.style.display = isExpanded ? 'none' : 'block';
+    section.setAttribute('aria-hidden', isExpanded);
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            overflow: hidden;
-            transition: background-color 0.3s ease;
-        }
+aboutButton.addEventListener('click', () => {
+    toggleSection(aboutButton, aboutSection);
+    if (portfolioSection.style.display === 'block') {
+        toggleSection(portfolioButton, portfolioSection);
+    }
+});
 
-        .logo-container {
-            position: relative;
-            max-width: 90%;
-            height: auto;
-            margin-bottom: 20px;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-container img {
-            width: 100%;
-            height: auto;
-            max-width: 400px;
-        }
-
-        .button-container {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px 0;
-        }
-
-        .menu-button {
-            padding: 8px 16px;
-            background-color: var(--button-bg);
-            color: var(--button-text);
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            z-index: 1;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        .menu-button:hover, .menu-button:focus {
-            background-color: var(--button-hover-bg);
-            color: var(--button-hover-text);
-            outline: none;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-section, .portfolio-section {
-            max-width: 600px;
-            text-align: center;
-            margin-top: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: none;
-        }
-
-        .about-text {
-            font-size: 16px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            color: var(--text-color);
-        }
-
-        .falling-letter {
-            position: fixed;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 20px;
-            user-select: none;
-            pointer-events: none;
-            will-change: transform, opacity;
-        }
-    </style>
-</head>
-<body>
-    <div class="logo-container" id="logo-container">
-        <img src="https://raw.githubusercontent.com/Hananecherairia/cher/main/Hanan%20Cherairia%20HCH.jpg" alt="Hanane Cherairia Logo" loading="lazy">
-        <div class="button-container">
-            <button class="menu-button about-button" aria-expanded="false" aria-controls="about-section">About</button>
-            <button class="menu-button portfolio-button" aria-expanded="false" aria-controls="portfolio-section">Portfolio</button>
-            <a href="mailto:contact@hananecherairia.com" class="menu-button contact-button" aria-label="Contact Hanane">Contact</a>
-        </div>
-    </div>
-    <div id="about-section" class="about-section" aria-hidden="true">
-        <p class="about-text">Hanane Cherairia</p>
-    </div>
-    <div id="portfolio-section" class="portfolio-section" aria-hidden="true">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Y3QUlc9WbdA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-
-    <script>
-        // ... (Script remains the same as in the previous version)
-    </script>
-</body>
-</html>
+portfolioButton.addEventListener('click', () => {
+    toggleSection(portfolioButton, portfolioSection);
+    if (aboutSection.style.display === 'block') {
+        toggleSection(aboutButton, aboutSection);
+    }
+});
